@@ -7,187 +7,423 @@
     <style>
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             padding: 20px;
-            background-color: #f5f5f5;
-            min-height: 100vh;
-        }
-        header {
-            background-color: #1a73e8;
-            color: white;
-            padding: 20px;
-            margin: -20px -20px 20px -20px;
+            background: #f5f5f5;
         }
         h1 {
-            margin: 0;
-            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
         }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
+        h2 {
+            color: #555;
+            margin: 20px 0 10px;
         }
-        .section {
+
+        /* Tab Navigation */
+        .tab-container {
             background: white;
             border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .tab-nav {
+            display: flex;
+            background: #e0e0e0;
+            border-bottom: 2px solid #ccc;
+        }
+        .tab-button {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            background: #e0e0e0;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            color: #555;
+            transition: all 0.3s ease;
+        }
+        .tab-button:hover {
+            background: #d0d0d0;
+        }
+        .tab-button.active {
+            background: white;
+            color: #007bff;
+            border-bottom: 2px solid #007bff;
+            margin-bottom: -2px;
+        }
+        .tab-content {
+            display: none;
             padding: 20px;
+            min-height: 300px;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Common styles */
+        .section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
             margin-bottom: 20px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        .section h2 {
-            margin-top: 0;
-            color: #333;
-            font-size: 18px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
-        }
-        button {
+        button, .btn {
             padding: 12px 24px;
-            font-size: 16px;
+            margin: 5px;
             border: none;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
-            margin: 5px;
+            font-size: 14px;
+            transition: transform 0.1s;
         }
-        .dead-button {
-            background-color: #e0e0e0;
-            color: #666;
+        button:active, .btn:active {
+            transform: scale(0.98);
         }
-        .error-button {
-            background-color: #d32f2f;
+        .btn-primary {
+            background: #007bff;
             color: white;
         }
-        .rage-button {
-            background-color: #ff9800;
+        .btn-secondary {
+            background: #6c757d;
             color: white;
         }
-        a.dead-link {
-            display: inline-block;
-            padding: 12px 24px;
-            background-color: #e0e0e0;
-            color: #666;
-            text-decoration: none;
-            border-radius: 4px;
-            margin: 5px;
+        .btn-danger {
+            background: #dc3545;
+            color: white;
         }
-        .input-section input {
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        input, textarea {
             padding: 10px;
-            font-size: 16px;
+            margin: 5px;
             border: 1px solid #ddd;
             border-radius: 4px;
-            width: 100%;
+            font-size: 14px;
+            width: calc(100% - 30px);
             max-width: 300px;
-            margin: 5px 0;
+        }
+        .dead-element {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px 25px;
+            display: inline-block;
+            margin: 5px;
+            border-radius: 6px;
+        }
+        .card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 10px 0;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin: 10px 0;
+        }
+        .grid-item {
+            background: #e9ecef;
+            padding: 20px;
+            text-align: center;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .grid-item:hover {
+            background: #dee2e6;
+        }
+        .counter {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
         }
         footer {
             text-align: center;
+            padding: 20px;
             color: #666;
-            padding: 20px;
-            font-size: 14px;
-        }
-        #survey-platform-div {
-            padding: 20px;
-            background-color: #e3f2fd;
-            border-radius: 4px;
-            margin-top: 10px;
+            font-size: 12px;
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Session Recording Test Page</h1>
-            <p>Test page for Qualtrics Session Replay mobile testing</p>
-        </div>
-    </header>
+    <h1>Session Recording Test Page</h1>
+    <p>Test page for Qualtrics Session Replay mobile testing with multiple tabs</p>
 
-    <div class="container">
-        <!-- Dead Click Section -->
-        <div class="section">
-            <h2>Dead Click Elements</h2>
-            <p>These elements do nothing when clicked (for dead click detection):</p>
-            <button id="DeadButton" class="dead-button">Dead Button</button>
-            <a id="DeadLink" class="dead-link" href="javascript:void(0);">Dead Link</a>
+    <div class="tab-container">
+        <div class="tab-nav">
+            <button class="tab-button active" id="tab1-btn" data-tab="tab1">Home</button>
+            <button class="tab-button" id="tab2-btn" data-tab="tab2">Interactions</button>
+            <button class="tab-button" id="tab3-btn" data-tab="tab3">Forms</button>
+            <button class="tab-button" id="tab4-btn" data-tab="tab4">Signals</button>
+            <button class="tab-button" id="tab5-btn" data-tab="tab5">Gallery</button>
         </div>
 
-        <!-- JS Error Section - Matches PepperPotts structure: div[4]/box[1]/div[2]/button -->
-        <div></div>
-        <div></div>
-        <div></div>
-        <div>
-            <box>
-                <div></div>
-                <div>
-                    <button id="JSErrorButton" class="error-button" onclick="triggerJSError()">
-                        Trigger JS Error
-                    </button>
-                </div>
-            </box>
-        </div>
-
-        <!-- Rage Click Section -->
-        <div class="section">
-            <h2>Rage Click Element</h2>
-            <p>Click this rapidly to trigger rage click detection:</p>
-            <button id="RageClickTarget" class="rage-button">Click Me Rapidly</button>
-        </div>
-
-        <!-- Input Section -->
-        <div class="section input-section">
-            <h2>Input Fields</h2>
-            <p>For testing input masking:</p>
-            <input type="text" id="UnmaskedID" placeholder="Unmasked input">
-            <input type="password" id="MaskedPassword" placeholder="Masked password">
-        </div>
-
-        <!-- Survey Platform Div (for scroll/click testing) -->
-        <div class="section">
-            <h2>Content Area</h2>
-            <div id="survey-platform-div">
-                <p>This is a content area for scroll and click testing.</p>
-                <p>Session Replay should capture interactions with this element.</p>
+        <!-- Tab 1: Home -->
+        <div class="tab-content active" id="tab1">
+            <h2>Welcome</h2>
+            <p>This is a test page for Session Replay. Navigate through the tabs to test different interactions.</p>
+            <div class="card">
+                <h3>Quick Stats</h3>
+                <p>Tab visits: <span class="counter" id="visitCounter">0</span></p>
+                <button class="btn btn-primary" id="incrementBtn">Increment</button>
+                <button class="btn btn-secondary" id="resetBtn">Reset</button>
+            </div>
+            <div class="card">
+                <h3>Navigation Test</h3>
+                <p>Click the tabs above to navigate. Each tab contains different interactive elements.</p>
             </div>
         </div>
 
-        <!-- Pop-up Section -->
-        <div class="section">
-            <h2>Pop-up Test</h2>
-            <button id="PopUpTrigger" onclick="showPopup()">Show Pop-up</button>
+        <!-- Tab 2: Interactions -->
+        <div class="tab-content" id="tab2">
+            <h2>Click Interactions</h2>
+            <div class="card">
+                <h3>Working Buttons</h3>
+                <button class="btn btn-primary" id="action1">Action 1</button>
+                <button class="btn btn-success" id="action2">Action 2</button>
+                <button class="btn btn-secondary" id="action3">Action 3</button>
+            </div>
+            <div class="card">
+                <h3>Toggle Elements</h3>
+                <button class="btn btn-primary" id="toggleBtn">Toggle Content</button>
+                <div id="toggleContent" style="display: none; margin-top: 10px; padding: 15px; background: #d4edda; border-radius: 6px;">
+                    This content was toggled!
+                </div>
+            </div>
+            <div class="card">
+                <h3>Accordion</h3>
+                <div id="accordion">
+                    <button class="btn btn-secondary accordion-btn" data-target="acc1">Section 1</button>
+                    <div id="acc1" class="accordion-content" style="display: none; padding: 10px; background: #f8f9fa;">Content for Section 1</div>
+                    <button class="btn btn-secondary accordion-btn" data-target="acc2">Section 2</button>
+                    <div id="acc2" class="accordion-content" style="display: none; padding: 10px; background: #f8f9fa;">Content for Section 2</div>
+                    <button class="btn btn-secondary accordion-btn" data-target="acc3">Section 3</button>
+                    <div id="acc3" class="accordion-content" style="display: none; padding: 10px; background: #f8f9fa;">Content for Section 3</div>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <!-- Pop-up Modal -->
-    <div id="popup" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:1000;">
-        <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:white; padding:30px; border-radius:8px; text-align:center;">
-            <img id="PopUpImage" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect fill='%231a73e8' width='100' height='100'/%3E%3Ctext x='50' y='55' text-anchor='middle' fill='white' font-size='14'%3ETest Image%3C/text%3E%3C/svg%3E" alt="Test Image" style="width:100px;height:100px;">
-            <p>This is a test popup</p>
-            <button id="popupclose" onclick="hidePopup()">Close</button>
+        <!-- Tab 3: Forms -->
+        <div class="tab-content" id="tab3">
+            <h2>Form Elements</h2>
+            <form id="testForm" onsubmit="return handleFormSubmit(event)">
+                <div class="card">
+                    <h3>Contact Information</h3>
+                    <input type="text" id="nameInput" name="name" placeholder="Enter your name" required>
+                    <input type="email" id="emailInput" name="email" placeholder="Enter your email" required>
+                    <input type="tel" id="phoneInput" name="phone" placeholder="Enter your phone">
+                </div>
+                <div class="card">
+                    <h3>Feedback</h3>
+                    <textarea id="messageInput" name="message" placeholder="Enter your feedback" rows="3"></textarea>
+                    <div style="margin: 10px 0;">
+                        <label>Rating:</label>
+                        <select id="ratingDropdown" name="rating" style="padding: 10px; margin: 5px; border-radius: 4px;">
+                            <option value="">Select a rating</option>
+                            <option value="5">5 - Excellent</option>
+                            <option value="4">4 - Good</option>
+                            <option value="3">3 - Average</option>
+                            <option value="2">2 - Poor</option>
+                            <option value="1">1 - Very Poor</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Preferences</h3>
+                    <div style="margin: 10px 0;">
+                        <label><input type="checkbox" id="check1" name="newsletter"> Subscribe to newsletter</label><br>
+                        <label><input type="checkbox" id="check2" name="updates"> Receive product updates</label><br>
+                        <label><input type="checkbox" id="check3" name="promotions"> Receive promotional offers</label>
+                    </div>
+                    <div style="margin: 10px 0;">
+                        <label>Contact preference:</label><br>
+                        <label><input type="radio" name="contactPref" value="email" id="radioEmail"> Email</label>
+                        <label><input type="radio" name="contactPref" value="phone" id="radioPhone"> Phone</label>
+                        <label><input type="radio" name="contactPref" value="sms" id="radioSms"> SMS</label>
+                    </div>
+                </div>
+                <div class="card">
+                    <button type="submit" class="btn btn-success" id="submitFormBtn">Submit Form</button>
+                    <button type="button" class="btn btn-secondary" id="clearForm">Clear Form</button>
+                </div>
+            </form>
+            <div id="formResult" class="card" style="display: none; background: #d4edda;">
+                <h3>Form Submitted Successfully!</h3>
+                <p id="formResultText"></p>
+            </div>
+        </div>
+
+        <!-- Tab 4: Frustration Signals -->
+        <div class="tab-content" id="tab4">
+            <h2>Frustration Signal Testing</h2>
+            <div class="card">
+                <h3>Dead Click Elements</h3>
+                <p>These elements do nothing when clicked:</p>
+                <span class="dead-element" id="DeadButton">Dead Button</span>
+                <a href="javascript:void(0)" class="dead-element" id="DeadLink">Dead Link</a>
+            </div>
+            <div class="card">
+                <h3>Error Click</h3>
+                <button class="btn btn-danger" id="JSErrorButton">Trigger JS Error</button>
+            </div>
+            <div class="card">
+                <h3>Rage Click Test</h3>
+                <p>Click this rapidly to trigger rage click detection:</p>
+                <button class="btn btn-primary" id="RageClickTarget" style="font-size: 18px; padding: 20px 40px;">
+                    Click Me Rapidly
+                </button>
+                <p id="clickCount" style="margin-top: 10px;">Click count: 0</p>
+            </div>
+        </div>
+
+        <!-- Tab 5: Gallery -->
+        <div class="tab-content" id="tab5">
+            <h2>Interactive Gallery</h2>
+            <div class="grid">
+                <div class="grid-item" data-item="1">Item 1</div>
+                <div class="grid-item" data-item="2">Item 2</div>
+                <div class="grid-item" data-item="3">Item 3</div>
+                <div class="grid-item" data-item="4">Item 4</div>
+                <div class="grid-item" data-item="5">Item 5</div>
+                <div class="grid-item" data-item="6">Item 6</div>
+                <div class="grid-item" data-item="7">Item 7</div>
+                <div class="grid-item" data-item="8">Item 8</div>
+                <div class="grid-item" data-item="9">Item 9</div>
+            </div>
+            <div class="card">
+                <h3>Selected Item</h3>
+                <p id="selectedItem">Click a grid item to select it</p>
+            </div>
+            <div class="card">
+                <h3>Scroll Test</h3>
+                <div style="height: 200px; overflow-y: scroll; background: #f8f9fa; padding: 10px;" id="scrollContainer">
+                    <p>Scroll content line 1</p>
+                    <p>Scroll content line 2</p>
+                    <p>Scroll content line 3</p>
+                    <p>Scroll content line 4</p>
+                    <p>Scroll content line 5</p>
+                    <p>Scroll content line 6</p>
+                    <p>Scroll content line 7</p>
+                    <p>Scroll content line 8</p>
+                    <p>Scroll content line 9</p>
+                    <p>Scroll content line 10</p>
+                    <p>Scroll content line 11</p>
+                    <p>Scroll content line 12</p>
+                    <p>Scroll content line 13</p>
+                    <p>Scroll content line 14</p>
+                    <p>Scroll content line 15</p>
+                </div>
+            </div>
         </div>
     </div>
 
     <footer>
-        <p>Qualtrics Session Replay Test Page | For iOS Safari Mobile Testing</p>
+        Qualtrics Session Replay Test Page | For iOS Safari Mobile Testing
     </footer>
 
     <script>
-        function triggerJSError() {
-            // This triggers a JavaScript error that Session Replay should capture
-            console.log("Triggering JS Error...");
-            throw new Error("Intentional JS Error for testing");
+        // Tab Navigation
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+        let visitCount = 0;
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const tabId = button.getAttribute('data-tab');
+                
+                // Update active states
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                button.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+                
+                // Increment visit counter
+                visitCount++;
+                document.getElementById('visitCounter').textContent = visitCount;
+            });
+        });
+
+        // Counter buttons
+        document.getElementById('incrementBtn').addEventListener('click', () => {
+            visitCount++;
+            document.getElementById('visitCounter').textContent = visitCount;
+        });
+
+        document.getElementById('resetBtn').addEventListener('click', () => {
+            visitCount = 0;
+            document.getElementById('visitCounter').textContent = visitCount;
+        });
+
+        // Toggle content
+        document.getElementById('toggleBtn').addEventListener('click', () => {
+            const content = document.getElementById('toggleContent');
+            content.style.display = content.style.display === 'none' ? 'block' : 'none';
+        });
+
+        // Accordion
+        document.querySelectorAll('.accordion-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetId = btn.getAttribute('data-target');
+                const target = document.getElementById(targetId);
+                target.style.display = target.style.display === 'none' ? 'block' : 'none';
+            });
+        });
+
+        // Action buttons
+        document.getElementById('action1').addEventListener('click', () => alert('Action 1 clicked!'));
+        document.getElementById('action2').addEventListener('click', () => alert('Action 2 clicked!'));
+        document.getElementById('action3').addEventListener('click', () => alert('Action 3 clicked!'));
+
+        // Form handling
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const formData = new FormData(document.getElementById('testForm'));
+            const data = {};
+            formData.forEach((value, key) => data[key] = value);
+            
+            document.getElementById('formResult').style.display = 'block';
+            document.getElementById('formResultText').textContent = 
+                'Name: ' + (data.name || 'N/A') + ', Email: ' + (data.email || 'N/A') + ', Rating: ' + (data.rating || 'N/A');
+            
+            return false;
         }
 
-        function showPopup() {
-            document.getElementById('popup').style.display = 'block';
-        }
+        document.getElementById('clearForm').addEventListener('click', () => {
+            document.getElementById('testForm').reset();
+            document.getElementById('formResult').style.display = 'none';
+        });
 
-        function hidePopup() {
-            document.getElementById('popup').style.display = 'none';
-        }
+        // JS Error button
+        document.getElementById('JSErrorButton').addEventListener('click', () => {
+            throw new Error('Test JS Error triggered');
+        });
 
-        // Log page load for debugging
-        console.log("Session Recording Test Page loaded");
+        // Rage click counter
+        let rageClickCount = 0;
+        document.getElementById('RageClickTarget').addEventListener('click', () => {
+            rageClickCount++;
+            document.getElementById('clickCount').textContent = 'Click count: ' + rageClickCount;
+        });
+
+        // Grid items
+        document.querySelectorAll('.grid-item').forEach(item => {
+            item.addEventListener('click', () => {
+                document.querySelectorAll('.grid-item').forEach(i => i.style.background = '#e9ecef');
+                item.style.background = '#007bff';
+                item.style.color = 'white';
+                document.getElementById('selectedItem').textContent = 'Selected: Item ' + item.getAttribute('data-item');
+            });
+        });
     </script>
 </body>
 </html>
