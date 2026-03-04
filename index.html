@@ -1,788 +1,1909 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Session Recording Test Page</title>
+    <title>Mobile Test Page</title>
+
+    <!--BEGIN QUALTRICS WEBSITE FEEDBACK SNIPPET-->
+    <script type='text/javascript'>
+      (function(){var g=function(g){
+      this.go=function(){var a=document.createElement("script");a.type="text/javascript";a.src=g;document.body&&document.body.appendChild(a)};
+      this.start=function(){var t=this;"complete"!==document.readyState?window.addEventListener?window.addEventListener("load",function(){t.go()},!1):window.attachEvent&&window.attachEvent("onload",function(){t.go()}):t.go()};};
+      try{(new g("https:/g1-cmh.qualtrics.com/SIE/?Q_ZID=ZN_2drMS30bouuSbOc")).start()}catch(i){}})();
+    </script><div id='ZN_2drMS30bouuSbOc'><!--DO NOT REMOVE-CONTENTS PLACED HERE--></div>
+
+    <script type='text/javascript'>
+
+      // (function(){var g=function(g){
+      
+      // this.go=function(){var a=document.createElement("script");a.type="text/javascript";a.src=g;document.body&&document.body.appendChild(a)};
+      
+      // this.start=function(){var t=this;"complete"!==document.readyState?window.addEventListener?window.addEventListener("load",function(){t.go()},!1):window.attachEvent&&window.attachEvent("onload",function(){t.go()}):t.go()};};
+      
+      // try{(new g("https://localhost:3000/SIE/?Q_ZID=ZN_2drMS30bouuSbOc")).start()}catch(i){}})();
+      
+      </script><div id='ZN_2drMS30bouuSbOc'><!--DO NOT REMOVE-CONTENTS PLACED HERE--></div>
+      
+
+    <!--END WEBSITE FEEDBACK SNIPPET-->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            padding: 20px;
-            background: #f5f5f5;
-        }
-        h1 {
-            color: #333;
-            margin-bottom: 20px;
-        }
-        h2 {
-            color: #555;
-            margin: 20px 0 10px;
-        }
+      :root {
+        --bg-primary: #0d1117;
+        --bg-secondary: #161b22;
+        --bg-tertiary: #21262d;
+        --text-primary: #f0f6fc;
+        --text-secondary: #8b949e;
+        --accent-coral: #ff6b6b;
+        --accent-teal: #4ecdc4;
+        --accent-gold: #ffd93d;
+        --accent-purple: #a78bfa;
+        --accent-pink: #f472b6;
+        --gradient-hero: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --gradient-sunset: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        --gradient-ocean: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        --gradient-forest: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+      }
 
-        /* Tab Navigation */
-        .tab-container {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-            overflow: hidden;
-        }
-        .tab-nav {
-            display: flex;
-            background: #e0e0e0;
-            border-bottom: 2px solid #ccc;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-        .tab-nav::-webkit-scrollbar {
-            display: none;
-        }
-        .tab-button {
-            flex: 0 0 auto;
-            padding: 15px 20px;
-            border: none;
-            background: #e0e0e0;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 500;
-            color: #555;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
-        .tab-button:hover {
-            background: #d0d0d0;
-        }
-        .tab-button.active {
-            background: white;
-            color: #007bff;
-            border-bottom: 2px solid #007bff;
-            margin-bottom: -2px;
-        }
-        .tab-content {
-            display: none;
-            padding: 20px;
-            min-height: 300px;
-        }
-        .tab-content.active {
-            display: block;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        /* Common styles */
-        .section {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      body {
+        font-family: 'Instrument Sans', sans-serif;
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        line-height: 1.6;
+        min-height: 100vh;
+        background-image: 
+          radial-gradient(ellipse at 20% 0%, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
+          radial-gradient(ellipse at 80% 100%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
+      }
+
+      .container {
+        max-width: 480px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Hero Section */
+      .hero {
+        padding: 60px 0 40px;
+        text-align: center;
+        animation: fadeInUp 0.8s ease-out;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
         }
-        button, .btn {
-            padding: 12px 24px;
-            margin: 5px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: transform 0.1s;
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
-        button:active, .btn:active {
-            transform: scale(0.98);
-        }
-        .btn-primary {
-            background: #007bff;
-            color: white;
-        }
-        .btn-secondary {
-            background: #6c757d;
-            color: white;
-        }
-        .btn-danger {
-            background: #dc3545;
-            color: white;
-        }
-        .btn-success {
-            background: #28a745;
-            color: white;
-        }
-        input, textarea {
-            padding: 10px;
-            margin: 5px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
-            width: calc(100% - 30px);
-            max-width: 300px;
-        }
-        .dead-element {
-            background: #f8d7da;
-            color: #721c24;
-            padding: 15px 25px;
-            display: inline-block;
-            margin: 5px;
-            border-radius: 6px;
-        }
-        .card {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 6px;
-            margin: 10px 0;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 10px;
-            margin: 10px 0;
-        }
-        .grid-item {
-            background: #e9ecef;
-            padding: 20px;
-            text-align: center;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-        .grid-item:hover {
-            background: #dee2e6;
-        }
-        .counter {
-            font-size: 24px;
-            font-weight: bold;
-            color: #007bff;
-        }
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: #666;
-            font-size: 12px;
-        }
+      }
+
+      .hero-badge {
+        display: inline-block;
+        background: var(--bg-tertiary);
+        border: 1px solid rgba(255, 107, 107, 0.3);
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 12px;
+        color: var(--accent-coral);
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 20px;
+      }
+
+      h1 {
+        font-family: 'DM Serif Display', serif;
+        font-size: 42px;
+        font-weight: 400;
+        line-height: 1.1;
+        margin-bottom: 16px;
+        background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-teal) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .hero p {
+        color: var(--text-secondary);
+        font-size: 16px;
+        max-width: 320px;
+        margin: 0 auto;
+      }
+
+      /* Content Sections */
+      .section {
+        padding: 32px 0;
+        animation: fadeInUp 0.8s ease-out;
+        animation-fill-mode: both;
+      }
+
+      .section:nth-child(2) { animation-delay: 0.1s; }
+      .section:nth-child(3) { animation-delay: 0.2s; }
+      .section:nth-child(4) { animation-delay: 0.3s; }
+      .section:nth-child(5) { animation-delay: 0.4s; }
+
+      h2 {
+        font-family: 'DM Serif Display', serif;
+        font-size: 28px;
+        font-weight: 400;
+        margin-bottom: 16px;
+        color: var(--text-primary);
+      }
+
+      h3 {
+        font-family: 'DM Serif Display', serif;
+        font-size: 22px;
+        font-weight: 400;
+        margin-bottom: 12px;
+        color: var(--text-primary);
+      }
+
+      p {
+        color: var(--text-secondary);
+        margin-bottom: 16px;
+      }
+
+      /* Image Gallery */
+      .image-grid {
+        display: grid;
+        gap: 12px;
+        margin: 24px 0;
+      }
+
+      .image-card {
+        position: relative;
+        border-radius: 16px;
+        overflow: hidden;
+        background: var(--bg-secondary);
+        aspect-ratio: 16/10;
+      }
+
+      .image-card.tall {
+        aspect-ratio: 4/5;
+      }
+
+      .image-card.wide {
+        aspect-ratio: 21/9;
+      }
+
+      .image-card.square {
+        aspect-ratio: 1/1;
+      }
+
+      .image-card.ultra-wide {
+        aspect-ratio: 3/1;
+      }
+
+      .image-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease, opacity 0.4s ease;
+        opacity: 0;
+      }
+
+      .image-card img.loaded {
+        opacity: 1;
+      }
+
+      .image-card:hover img {
+        transform: scale(1.05);
+      }
+
+      .image-card .loading-skeleton {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--bg-tertiary) 50%, var(--bg-secondary) 75%);
+        background-size: 200% 100%;
+        animation: shimmer 1.5s infinite;
+      }
+
+      @keyframes shimmer {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+      }
+
+      .image-caption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 40px 16px 16px;
+        background: linear-gradient(to top, rgba(13, 17, 23, 0.9), transparent);
+        font-size: 14px;
+        color: var(--text-primary);
+      }
+
+      /* Video Container */
+      .video-container {
+        position: relative;
+        border-radius: 16px;
+        overflow: hidden;
+        background: var(--bg-secondary);
+        margin: 24px 0;
+      }
+
+      .video-container iframe {
+        width: 100%;
+        aspect-ratio: 16/9;
+        border: none;
+      }
+
+      /* Stats Card */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin: 24px 0;
+      }
+
+      .stat-card {
+        background: var(--bg-secondary);
+        border: 1px solid var(--bg-tertiary);
+        border-radius: 16px;
+        padding: 20px;
+        text-align: center;
+        transition: transform 0.2s ease, border-color 0.2s ease;
+      }
+
+      .stat-card:hover {
+        transform: translateY(-2px);
+        border-color: var(--accent-teal);
+      }
+
+      .stat-number {
+        font-family: 'DM Serif Display', serif;
+        font-size: 32px;
+        color: var(--accent-gold);
+        display: block;
+      }
+
+      .stat-label {
+        font-size: 13px;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      /* Feature List */
+      .feature-list {
+        list-style: none;
+        margin: 24px 0;
+      }
+
+      .feature-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 16px;
+        background: var(--bg-secondary);
+        border-radius: 12px;
+        margin-bottom: 10px;
+        border: 1px solid transparent;
+        transition: border-color 0.2s ease;
+      }
+
+      .feature-list li:hover {
+        border-color: var(--accent-coral);
+      }
+
+      .feature-icon {
+        width: 40px;
+        height: 40px;
+        background: var(--gradient-hero);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        flex-shrink: 0;
+      }
+
+      .feature-icon.sunset { background: var(--gradient-sunset); }
+      .feature-icon.ocean { background: var(--gradient-ocean); }
+      .feature-icon.forest { background: var(--gradient-forest); }
+
+      .feature-content h3 {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 4px;
+        font-family: 'Instrument Sans', sans-serif;
+      }
+
+      .feature-content p {
+        font-size: 14px;
+        margin: 0;
+      }
+
+      /* Quote Block */
+      .quote-block {
+        background: var(--bg-secondary);
+        border-left: 3px solid var(--accent-teal);
+        padding: 24px;
+        border-radius: 0 16px 16px 0;
+        margin: 24px 0;
+      }
+
+      .quote-block.coral { border-left-color: var(--accent-coral); }
+      .quote-block.gold { border-left-color: var(--accent-gold); }
+      .quote-block.purple { border-left-color: var(--accent-purple); }
+
+      .quote-text {
+        font-family: 'DM Serif Display', serif;
+        font-size: 20px;
+        color: var(--text-primary);
+        font-style: italic;
+        margin-bottom: 12px;
+      }
+
+      .quote-author {
+        font-size: 14px;
+        color: var(--accent-coral);
+      }
+
+      /* Timeline */
+      .timeline {
+        position: relative;
+        padding-left: 30px;
+        margin: 24px 0;
+      }
+
+      .timeline::before {
+        content: '';
+        position: absolute;
+        left: 8px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: var(--bg-tertiary);
+      }
+
+      .timeline-item {
+        position: relative;
+        padding-bottom: 32px;
+      }
+
+      .timeline-item::before {
+        content: '';
+        position: absolute;
+        left: -26px;
+        top: 4px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--gradient-hero);
+        border: 2px solid var(--bg-primary);
+      }
+
+      .timeline-date {
+        font-size: 12px;
+        color: var(--accent-teal);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+      }
+
+      .timeline-title {
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+
+      .timeline-desc {
+        font-size: 14px;
+        color: var(--text-secondary);
+        margin: 0;
+      }
+
+      /* Card Grid */
+      .card-grid {
+        display: grid;
+        gap: 16px;
+        margin: 24px 0;
+      }
+
+      .card {
+        background: var(--bg-secondary);
+        border: 1px solid var(--bg-tertiary);
+        border-radius: 16px;
+        overflow: hidden;
+        transition: transform 0.2s ease, border-color 0.2s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-4px);
+        border-color: var(--accent-purple);
+      }
+
+      .card-image {
+        position: relative;
+        aspect-ratio: 16/9;
+        overflow: hidden;
+      }
+
+      .card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+
+      .card-image img.loaded {
+        opacity: 1;
+      }
+
+      .card-image .loading-skeleton {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--bg-tertiary) 50%, var(--bg-secondary) 75%);
+        background-size: 200% 100%;
+        animation: shimmer 1.5s infinite;
+      }
+
+      .card-body {
+        padding: 20px;
+      }
+
+      .card-tag {
+        display: inline-block;
+        background: var(--bg-tertiary);
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 11px;
+        color: var(--accent-pink);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 12px;
+      }
+
+      .card-title {
+        font-family: 'DM Serif Display', serif;
+        font-size: 20px;
+        margin-bottom: 8px;
+      }
+
+      .card-desc {
+        font-size: 14px;
+        color: var(--text-secondary);
+        margin: 0;
+      }
+
+      /* Accordion */
+      .accordion {
+        margin: 24px 0;
+      }
+
+      .accordion-item {
+        background: var(--bg-secondary);
+        border: 1px solid var(--bg-tertiary);
+        border-radius: 12px;
+        margin-bottom: 8px;
+        overflow: hidden;
+      }
+
+      .accordion-header {
+        padding: 16px 20px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 500;
+      }
+
+      .accordion-header::after {
+        content: '+';
+        font-size: 20px;
+        color: var(--accent-teal);
+      }
+
+      .accordion-content {
+        padding: 0 20px 16px;
+        font-size: 14px;
+        color: var(--text-secondary);
+      }
+
+      /* Progress Bars */
+      .progress-section {
+        margin: 24px 0;
+      }
+
+      .progress-item {
+        margin-bottom: 20px;
+      }
+
+      .progress-label {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        font-size: 14px;
+      }
+
+      .progress-bar {
+        height: 8px;
+        background: var(--bg-tertiary);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        height: 100%;
+        border-radius: 4px;
+        background: var(--gradient-hero);
+        transition: width 1s ease-out;
+      }
+
+      .progress-fill.sunset { background: var(--gradient-sunset); }
+      .progress-fill.ocean { background: var(--gradient-ocean); }
+      .progress-fill.forest { background: var(--gradient-forest); }
+
+      /* Testimonials */
+      .testimonial {
+        background: var(--bg-secondary);
+        border-radius: 16px;
+        padding: 24px;
+        margin-bottom: 16px;
+        border: 1px solid var(--bg-tertiary);
+      }
+
+      .testimonial-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+
+      .testimonial-avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        overflow: hidden;
+        background: var(--bg-tertiary);
+      }
+
+      .testimonial-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .testimonial-name {
+        font-weight: 600;
+        font-size: 15px;
+      }
+
+      .testimonial-role {
+        font-size: 13px;
+        color: var(--text-secondary);
+      }
+
+      .testimonial-text {
+        font-size: 15px;
+        color: var(--text-secondary);
+        line-height: 1.7;
+        margin: 0;
+      }
+
+      .testimonial-stars {
+        color: var(--accent-gold);
+        font-size: 14px;
+        margin-top: 12px;
+      }
+
+      /* Pricing Cards */
+      .pricing-grid {
+        display: grid;
+        gap: 16px;
+        margin: 24px 0;
+      }
+
+      .pricing-card {
+        background: var(--bg-secondary);
+        border: 1px solid var(--bg-tertiary);
+        border-radius: 20px;
+        padding: 28px 24px;
+        text-align: center;
+        transition: transform 0.2s ease, border-color 0.2s ease;
+      }
+
+      .pricing-card.featured {
+        border-color: var(--accent-teal);
+        background: linear-gradient(180deg, rgba(78, 205, 196, 0.05) 0%, var(--bg-secondary) 100%);
+      }
+
+      .pricing-card:hover {
+        transform: translateY(-4px);
+      }
+
+      .pricing-badge {
+        display: inline-block;
+        background: var(--gradient-hero);
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 16px;
+      }
+
+      .pricing-name {
+        font-family: 'DM Serif Display', serif;
+        font-size: 24px;
+        margin-bottom: 8px;
+      }
+
+      .pricing-price {
+        font-size: 48px;
+        font-weight: 600;
+        color: var(--accent-teal);
+        margin-bottom: 4px;
+      }
+
+      .pricing-price span {
+        font-size: 16px;
+        color: var(--text-secondary);
+        font-weight: 400;
+      }
+
+      .pricing-desc {
+        font-size: 14px;
+        color: var(--text-secondary);
+        margin-bottom: 20px;
+      }
+
+      .pricing-features {
+        list-style: none;
+        text-align: left;
+        margin-bottom: 24px;
+      }
+
+      .pricing-features li {
+        padding: 10px 0;
+        border-bottom: 1px solid var(--bg-tertiary);
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .pricing-features li::before {
+        content: '✓';
+        color: var(--accent-teal);
+        font-weight: bold;
+      }
+
+      .pricing-btn {
+        display: block;
+        width: 100%;
+        padding: 14px;
+        background: var(--bg-tertiary);
+        border: none;
+        border-radius: 12px;
+        color: var(--text-primary);
+        font-family: inherit;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s ease;
+      }
+
+      .pricing-btn.primary {
+        background: var(--gradient-hero);
+      }
+
+      /* Divider */
+      .divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--bg-tertiary), transparent);
+        margin: 40px 0;
+      }
+
+      /* Form Section */
+      .form-section {
+        background: var(--bg-secondary);
+        border-radius: 24px;
+        padding: 32px 24px;
+        margin: 40px 0;
+        border: 1px solid var(--bg-tertiary);
+      }
+
+      .form-section h2 {
+        text-align: center;
+        margin-bottom: 8px;
+      }
+
+      .form-subtitle {
+        text-align: center;
+        color: var(--text-secondary);
+        margin-bottom: 24px;
+        font-size: 14px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      label {
+        display: block;
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 8px;
+        color: var(--text-primary);
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"],
+      input[type="url"],
+      textarea,
+      select {
+        width: 100%;
+        padding: 14px 16px;
+        background: var(--bg-primary);
+        border: 1px solid var(--bg-tertiary);
+        border-radius: 12px;
+        color: var(--text-primary);
+        font-family: inherit;
+        font-size: 16px;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      input:focus,
+      textarea:focus,
+      select:focus {
+        outline: none;
+        border-color: var(--accent-teal);
+        box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.1);
+      }
+
+      textarea {
+        min-height: 120px;
+        resize: vertical;
+      }
+
+      select {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238b949e' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 16px center;
+        padding-right: 40px;
+      }
+
+      .checkbox-group {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .checkbox-group input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        accent-color: var(--accent-teal);
+        margin-top: 2px;
+      }
+
+      .checkbox-label {
+        font-size: 14px;
+        color: var(--text-secondary);
+        line-height: 1.5;
+      }
+
+      .radio-group {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .radio-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 16px;
+        background: var(--bg-primary);
+        border: 1px solid var(--bg-tertiary);
+        border-radius: 12px;
+        cursor: pointer;
+        transition: border-color 0.2s ease;
+      }
+
+      .radio-item:hover {
+        border-color: var(--accent-teal);
+      }
+
+      .radio-item input[type="radio"] {
+        accent-color: var(--accent-teal);
+      }
+
+      .submit-btn {
+        width: 100%;
+        padding: 16px;
+        background: var(--gradient-hero);
+        border: none;
+        border-radius: 12px;
+        color: white;
+        font-family: inherit;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        margin-top: 8px;
+      }
+
+      .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+      }
+
+      .submit-btn:active {
+        transform: translateY(0);
+      }
+
+      /* Footer */
+      footer {
+        text-align: center;
+        padding: 40px 20px;
+        color: var(--text-secondary);
+        font-size: 14px;
+      }
+
+      footer a {
+        color: var(--accent-teal);
+        text-decoration: none;
+      }
+
+      /* Team Section */
+      .team-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        margin: 24px 0;
+      }
+
+      .team-member {
+        background: var(--bg-secondary);
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid var(--bg-tertiary);
+      }
+
+      .team-avatar {
+        aspect-ratio: 1/1;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .team-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+
+      .team-avatar img.loaded {
+        opacity: 1;
+      }
+
+      .team-avatar .loading-skeleton {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--bg-tertiary) 50%, var(--bg-secondary) 75%);
+        background-size: 200% 100%;
+        animation: shimmer 1.5s infinite;
+      }
+
+      .team-info {
+        padding: 16px;
+        text-align: center;
+      }
+
+      .team-name {
+        font-weight: 600;
+        font-size: 15px;
+        margin-bottom: 4px;
+      }
+
+      .team-role {
+        font-size: 13px;
+        color: var(--accent-teal);
+      }
+
+      /* Logo Cloud */
+      .logo-cloud {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 24px;
+        margin: 24px 0;
+        opacity: 0.6;
+      }
+
+      .logo-cloud img {
+        height: 32px;
+        filter: grayscale(100%) brightness(200%);
+      }
+
+      /* CTA Banner */
+      .cta-banner {
+        background: var(--gradient-hero);
+        border-radius: 20px;
+        padding: 32px 24px;
+        text-align: center;
+        margin: 32px 0;
+      }
+
+      .cta-banner h2 {
+        color: white;
+        margin-bottom: 12px;
+      }
+
+      .cta-banner p {
+        color: rgba(255,255,255,0.8);
+        margin-bottom: 20px;
+      }
+
+      .cta-btn {
+        display: inline-block;
+        padding: 14px 28px;
+        background: white;
+        color: #667eea;
+        border-radius: 12px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: transform 0.2s ease;
+      }
+
+      .cta-btn:hover {
+        transform: translateY(-2px);
+      }
+
+      /* Notification Banner */
+      .notification-banner {
+        background: var(--bg-secondary);
+        border: 1px solid var(--accent-gold);
+        border-radius: 12px;
+        padding: 16px;
+        margin: 24px 0;
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .notification-icon {
+        font-size: 20px;
+      }
+
+      .notification-content {
+        flex: 1;
+      }
+
+      .notification-title {
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 4px;
+      }
+
+      .notification-text {
+        font-size: 13px;
+        color: var(--text-secondary);
+        margin: 0;
+      }
+
+      /* Steps */
+      .steps {
+        margin: 24px 0;
+      }
+
+      .step {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+
+      .step-number {
+        width: 40px;
+        height: 40px;
+        background: var(--gradient-hero);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        flex-shrink: 0;
+      }
+
+      .step-content h3 {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        font-family: 'Instrument Sans', sans-serif;
+      }
+
+      .step-content p {
+        font-size: 14px;
+        margin: 0;
+      }
+
+      /* Tags */
+      .tag-cloud {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 24px 0;
+      }
+
+      .tag {
+        background: var(--bg-secondary);
+        border: 1px solid var(--bg-tertiary);
+        padding: 8px 14px;
+        border-radius: 20px;
+        font-size: 13px;
+        color: var(--text-secondary);
+        transition: all 0.2s ease;
+      }
+
+      .tag:hover {
+        border-color: var(--accent-teal);
+        color: var(--accent-teal);
+      }
+
+      /* Map placeholder */
+      .map-container {
+        border-radius: 16px;
+        overflow: hidden;
+        margin: 24px 0;
+        background: var(--bg-secondary);
+        position: relative;
+      }
+
+      .map-container iframe {
+        width: 100%;
+        height: 300px;
+        border: none;
+      }
     </style>
-</head>
-<body>
-    <h1>Session Recording Test Page</h1>
-    <p>Test page for Qualtrics Session Replay mobile testing with multiple tabs</p>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Hero Section -->
+      <section class="hero">
+        <span class="hero-badge">Mobile Test</span>
+        <h1>Experience the Journey</h1>
+        <p>A collection of moments captured through lens and time, waiting to be discovered.</p>
+      </section>
 
-    <div class="tab-container">
-        <div class="tab-nav">
-            <button class="tab-button active" id="tab1-btn" data-tab="tab1">Home</button>
-            <button class="tab-button" id="tab2-btn" data-tab="tab2">Interactions</button>
-            <button class="tab-button" id="tab3-btn" data-tab="tab3">Forms</button>
-            <button class="tab-button" id="tab4-btn" data-tab="tab4">Signals</button>
-            <button class="tab-button" id="tab5-btn" data-tab="tab5">Gallery</button>
-            <button class="tab-button" id="tab6-btn" data-tab="tab6">Scroll</button>
+      <!-- Notification Banner -->
+      <div class="notification-banner">
+        <span class="notification-icon">⚡</span>
+        <div class="notification-content">
+          <div class="notification-title">New Features Available</div>
+          <p class="notification-text">We've just launched exciting new tools. Scroll down to explore!</p>
         </div>
+      </div>
 
-        <!-- Tab 1: Home -->
-        <div class="tab-content active" id="tab1">
-            <h2>Welcome</h2>
-            <p>This is a test page for Session Replay. Navigate through the tabs to test different interactions.</p>
-            <div class="card">
-                <h3>Quick Stats</h3>
-                <p>Tab visits: <span class="counter" id="visitCounter">0</span></p>
-                <button class="btn btn-primary" id="incrementBtn">Increment</button>
-                <button class="btn btn-secondary" id="resetBtn">Reset</button>
-            </div>
-            <div class="card">
-                <h3>Navigation Test</h3>
-                <p>Click the tabs above to navigate. Each tab contains different interactive elements.</p>
-            </div>
+      <!-- Image Gallery Section 1 -->
+      <section class="section">
+        <h2>Visual Stories</h2>
+        <p>Each image tells a unique tale. Scroll through our curated collection of high-resolution photographs from around the world.</p>
+        
+        <div class="image-grid">
+          <div class="image-card">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=4000&q=90" alt="Mountain landscape" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Alpine Serenity</div>
+          </div>
+          
+          <div class="image-card tall">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=4000&q=90" alt="Nature scene" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Forest Dreams</div>
+          </div>
+          
+          <div class="image-card wide">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=4000&q=90" alt="Panoramic view" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Horizon Unlimited</div>
+          </div>
         </div>
+      </section>
 
-        <!-- Tab 2: Interactions -->
-        <div class="tab-content" id="tab2">
-            <h2>Click Interactions</h2>
-            <div class="card">
-                <h3>Working Buttons</h3>
-                <button class="btn btn-primary" id="action1">Action 1</button>
-                <button class="btn btn-success" id="action2">Action 2</button>
-                <button class="btn btn-secondary" id="action3">Action 3</button>
-            </div>
-            <div class="card">
-                <h3>Toggle Elements</h3>
-                <button class="btn btn-primary" id="toggleBtn">Toggle Content</button>
-                <div id="toggleContent" style="display: none; margin-top: 10px; padding: 15px; background: #d4edda; border-radius: 6px;">
-                    This content was toggled!
-                </div>
-            </div>
-            <div class="card">
-                <h3>Accordion</h3>
-                <div id="accordion">
-                    <button class="btn btn-secondary accordion-btn" data-target="acc1">Section 1</button>
-                    <div id="acc1" class="accordion-content" style="display: none; padding: 10px; background: #f8f9fa;">Content for Section 1</div>
-                    <button class="btn btn-secondary accordion-btn" data-target="acc2">Section 2</button>
-                    <div id="acc2" class="accordion-content" style="display: none; padding: 10px; background: #f8f9fa;">Content for Section 2</div>
-                    <button class="btn btn-secondary accordion-btn" data-target="acc3">Section 3</button>
-                    <div id="acc3" class="accordion-content" style="display: none; padding: 10px; background: #f8f9fa;">Content for Section 3</div>
-                </div>
-            </div>
+      <!-- Stats Section -->
+      <section class="section">
+        <h2>By the Numbers</h2>
+        <p>Join millions of explorers who have already discovered their next adventure with us.</p>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-number">2.4M</span>
+            <span class="stat-label">Downloads</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">180+</span>
+            <span class="stat-label">Countries</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">99.9%</span>
+            <span class="stat-label">Uptime</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">24/7</span>
+            <span class="stat-label">Support</span>
+          </div>
         </div>
+      </section>
 
-        <!-- Tab 3: Forms -->
-        <div class="tab-content" id="tab3">
-            <h2>Form Elements</h2>
-            <form id="testForm" onsubmit="return handleFormSubmit(event)">
-                <div class="card">
-                    <h3>Contact Information</h3>
-                    <input type="text" id="nameInput" name="name" placeholder="Enter your name" required>
-                    <input type="email" id="emailInput" name="email" placeholder="Enter your email" required>
-                    <input type="tel" id="phoneInput" name="phone" placeholder="Enter your phone">
-                </div>
-                <div class="card">
-                    <h3>Feedback</h3>
-                    <textarea id="messageInput" name="message" placeholder="Enter your feedback" rows="3"></textarea>
-                    <div style="margin: 10px 0;">
-                        <label>Rating:</label>
-                        <select id="ratingDropdown" name="rating" style="padding: 10px; margin: 5px; border-radius: 4px;">
-                            <option value="">Select a rating</option>
-                            <option value="5">5 - Excellent</option>
-                            <option value="4">4 - Good</option>
-                            <option value="3">3 - Average</option>
-                            <option value="2">2 - Poor</option>
-                            <option value="1">1 - Very Poor</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="card">
-                    <h3>Preferences</h3>
-                    <div style="margin: 10px 0;">
-                        <label><input type="checkbox" id="check1" name="newsletter"> Subscribe to newsletter</label><br>
-                        <label><input type="checkbox" id="check2" name="updates"> Receive product updates</label><br>
-                        <label><input type="checkbox" id="check3" name="promotions"> Receive promotional offers</label>
-                    </div>
-                    <div style="margin: 10px 0;">
-                        <label>Contact preference:</label><br>
-                        <label><input type="radio" name="contactPref" value="email" id="radioEmail"> Email</label>
-                        <label><input type="radio" name="contactPref" value="phone" id="radioPhone"> Phone</label>
-                        <label><input type="radio" name="contactPref" value="sms" id="radioSms"> SMS</label>
-                    </div>
-                </div>
-                <div class="card">
-                    <button type="submit" class="btn btn-success" id="submitFormBtn">Submit Form</button>
-                    <button type="button" class="btn btn-secondary" id="clearForm">Clear Form</button>
-                </div>
-            </form>
-            <div id="formResult" class="card" style="display: none; background: #d4edda;">
-                <h3>Form Submitted Successfully!</h3>
-                <p id="formResultText"></p>
-            </div>
+      <!-- More Heavy Images -->
+      <section class="section">
+        <h2>Featured Collection</h2>
+        <p>Handpicked photographs showcasing the raw beauty of nature in its most pristine form.</p>
+        <div class="image-grid">
+          <div class="image-card">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=4000&q=90" alt="Waterfall" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Cascading Waters</div>
+          </div>
+          
+          <div class="image-card">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=4000&q=90" alt="Foggy mountains" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Misty Peaks</div>
+          </div>
+          
+          <div class="image-card tall">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=4000&q=90" alt="Forest path" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Woodland Path</div>
+          </div>
         </div>
+      </section>
 
-        <!-- Tab 4: Frustration Signals -->
-        <div class="tab-content" id="tab4">
-            <h2>Frustration Signal Testing</h2>
-            <div class="card">
-                <h3>Dead Click Elements</h3>
-                <p>These elements do nothing when clicked:</p>
-                <span class="dead-element" id="DeadButton">Dead Button</span>
-                <a href="javascript:void(0)" class="dead-element" id="DeadLink">Dead Link</a>
+      <!-- Features Section -->
+      <section class="section">
+        <h2>What We Offer</h2>
+        <p>Discover the features that make our platform the choice of millions worldwide.</p>
+        <ul class="feature-list">
+          <li>
+            <div class="feature-icon">✨</div>
+            <div class="feature-content">
+              <h3>Premium Quality</h3>
+              <p>Every piece curated with attention to detail and excellence.</p>
             </div>
-            <div class="card">
-                <h3>Error Click</h3>
-                <button class="btn btn-danger" id="JSErrorButton">Trigger JS Error</button>
+          </li>
+          <li>
+            <div class="feature-icon sunset">🚀</div>
+            <div class="feature-content">
+              <h3>Lightning Fast</h3>
+              <p>Optimized for performance across all devices and networks.</p>
             </div>
-            <div class="card">
-                <h3>Rage Click Test</h3>
-                <p>Click this rapidly to trigger rage click detection:</p>
-                <button class="btn btn-primary" id="RageClickTarget" style="font-size: 18px; padding: 20px 40px;">
-                    Click Me Rapidly
-                </button>
-                <p id="clickCount" style="margin-top: 10px;">Click count: 0</p>
+          </li>
+          <li>
+            <div class="feature-icon ocean">🔒</div>
+            <div class="feature-content">
+              <h3>Secure & Private</h3>
+              <p>Your data is encrypted and protected at all times.</p>
             </div>
+          </li>
+          <li>
+            <div class="feature-icon forest">🌍</div>
+            <div class="feature-content">
+              <h3>Global Reach</h3>
+              <p>Available worldwide with localized content and support.</p>
+            </div>
+          </li>
+          <li>
+            <div class="feature-icon">📱</div>
+            <div class="feature-content">
+              <h3>Mobile First</h3>
+              <p>Designed from the ground up for the best mobile experience.</p>
+            </div>
+          </li>
+          <li>
+            <div class="feature-icon sunset">🎨</div>
+            <div class="feature-content">
+              <h3>Beautiful Design</h3>
+              <p>Stunning interfaces that are a pleasure to use every day.</p>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Quote Section -->
+      <section class="section">
+        <div class="quote-block">
+          <p class="quote-text">"The best journeys answer questions that in the beginning you didn't even think to ask."</p>
+          <span class="quote-author">— Jeff Johnson</span>
         </div>
+      </section>
 
-        <!-- Tab 5: Gallery -->
-        <div class="tab-content" id="tab5">
-            <h2>Interactive Gallery</h2>
-            <div class="grid">
-                <div class="grid-item" data-item="1">Item 1</div>
-                <div class="grid-item" data-item="2">Item 2</div>
-                <div class="grid-item" data-item="3">Item 3</div>
-                <div class="grid-item" data-item="4">Item 4</div>
-                <div class="grid-item" data-item="5">Item 5</div>
-                <div class="grid-item" data-item="6">Item 6</div>
-                <div class="grid-item" data-item="7">Item 7</div>
-                <div class="grid-item" data-item="8">Item 8</div>
-                <div class="grid-item" data-item="9">Item 9</div>
-            </div>
-            <div class="card">
-                <h3>Selected Item</h3>
-                <p id="selectedItem">Click a grid item to select it</p>
-            </div>
-            <div class="card">
-                <h3>Scroll Test</h3>
-                <div style="height: 200px; overflow-y: scroll; background: #f8f9fa; padding: 10px;" id="scrollContainer">
-                    <p>Scroll content line 1</p>
-                    <p>Scroll content line 2</p>
-                    <p>Scroll content line 3</p>
-                    <p>Scroll content line 4</p>
-                    <p>Scroll content line 5</p>
-                    <p>Scroll content line 6</p>
-                    <p>Scroll content line 7</p>
-                    <p>Scroll content line 8</p>
-                    <p>Scroll content line 9</p>
-                    <p>Scroll content line 10</p>
-                    <p>Scroll content line 11</p>
-                    <p>Scroll content line 12</p>
-                    <p>Scroll content line 13</p>
-                    <p>Scroll content line 14</p>
-                    <p>Scroll content line 15</p>
-                </div>
-            </div>
+      <!-- More Heavy Images 2 -->
+      <section class="section">
+        <h2>Explore More</h2>
+        <p>Continue your visual journey through landscapes that inspire wonder and adventure.</p>
+        <div class="image-grid">
+          <div class="image-card wide">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=4000&q=90" alt="Valley sunset" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Golden Valley</div>
+          </div>
+          
+          <div class="image-card">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1505765050516-f72dcac9c60e?w=4000&q=90" alt="Lake reflection" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Mirror Lake</div>
+          </div>
+          
+          <div class="image-card">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1439853949127-fa647f8aa6cc?w=4000&q=90" alt="Northern lights" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Aurora Dreams</div>
+          </div>
         </div>
+      </section>
 
-        <!-- Tab 6: Long Scroll Page -->
-        <div class="tab-content" id="tab6">
-            <h2>Long Scroll Page Test</h2>
-            <p>Scroll rapidly through this very long page to test session replay scroll capture.</p>
-            
-            <div class="card" id="scroll-section-1">
-                <h3>Section 1 - Top</h3>
-                <p>This is the beginning of a very long scrollable page.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </div>
-
-            <div class="card" id="scroll-section-2">
-                <h3>Section 2</h3>
-                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-            </div>
-
-            <div class="card" id="scroll-section-3">
-                <h3>Section 3</h3>
-                <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                <div style="height: 300px; background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%); display: flex; align-items: center; justify-content: center;">
-                    <span style="font-size: 24px; color: #6c757d;">Visual Element 1</span>
-                </div>
-            </div>
-
-            <div class="card" id="scroll-section-4">
-                <h3>Section 4</h3>
-                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
-                <p>Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-            </div>
-
-            <div class="card" id="scroll-section-5">
-                <h3>Section 5</h3>
-                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.</p>
-                <div style="height: 250px; background: #007bff; color: white; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
-                    <span style="font-size: 24px;">Blue Block</span>
-                </div>
-            </div>
-
-            <div class="card" id="scroll-section-6">
-                <h3>Section 6</h3>
-                <p>Sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
-                <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.</p>
-            </div>
-
-            <div class="card" id="scroll-section-7">
-                <h3>Section 7</h3>
-                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum.</p>
-                <div style="height: 200px; background: #28a745; color: white; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
-                    <span style="font-size: 24px;">Green Block</span>
-                </div>
-            </div>
-
-            <div class="card" id="scroll-section-8">
-                <h3>Section 8</h3>
-                <p>Deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
-                <p>Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</p>
-            </div>
-
-            <div class="card" id="scroll-section-9">
-                <h3>Section 9</h3>
-                <p>Et harum quidem rerum facilis est et expedita distinctio.</p>
-                <div style="height: 300px; background: linear-gradient(180deg, #dc3545 0%, #c82333 100%); color: white; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
-                    <span style="font-size: 24px;">Red Gradient</span>
-                </div>
-            </div>
-
-            <div class="card" id="scroll-section-10">
-                <h3>Section 10</h3>
-                <p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus.</p>
-                <p>Omnis voluptas assumenda est, omnis dolor repellendus.</p>
-            </div>
-
-            <div class="card" id="scroll-section-11">
-                <h3>Section 11</h3>
-                <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.</p>
-            </div>
-
-            <div class="card" id="scroll-section-12">
-                <h3>Section 12</h3>
-                <p>Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>
-                <div style="height: 250px; background: #6f42c1; color: white; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
-                    <span style="font-size: 24px;">Purple Block</span>
-                </div>
-            </div>
-
-            <div class="card" id="scroll-section-13">
-                <h3>Section 13</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </div>
-
-            <div class="card" id="scroll-section-14">
-                <h3>Section 14</h3>
-                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                <div style="height: 200px; background: #fd7e14; color: white; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
-                    <span style="font-size: 24px;">Orange Block</span>
-                </div>
-            </div>
-
-            <div class="card" id="scroll-section-15">
-                <h3>Section 15</h3>
-                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-            </div>
-
-            <div class="card" id="scroll-section-16">
-                <h3>Section 16</h3>
-                <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            </div>
-
-            <div class="card" id="scroll-section-17">
-                <h3>Section 17</h3>
-                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
-                <div style="height: 300px; background: linear-gradient(180deg, #17a2b8 0%, #138496 100%); color: white; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
-                    <span style="font-size: 24px;">Teal Gradient</span>
-                </div>
-            </div>
-
-            <div class="card" id="scroll-section-18">
-                <h3>Section 18</h3>
-                <p>Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-            </div>
-
-            <div class="card" id="scroll-section-19">
-                <h3>Section 19</h3>
-                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.</p>
-            </div>
-
-            <div class="card" id="scroll-section-20">
-                <h3>Section 20</h3>
-                <p>This is section 20. Keep scrolling - there's much more content below!</p>
-                <div style="height: 250px; background: #343a40; color: white; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
-                    <span style="font-size: 24px;">Dark Block</span>
-                </div>
-            </div>
-
-            <div class="card" id="scroll-section-21">
-                <h3>Section 21</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <div style="height: 400px; background: linear-gradient(180deg, #e83e8c 0%, #d63384 100%); color: white; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
-                    <span style="font-size: 28px;">Pink Gradient - Large</span>
-                </div>
-            </div>
-
-            <div class="card" id="scroll-section-22">
-                <h3>Section 22</h3>
-                <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </div>
-
-            <div class="card" id="scroll-section-23">
-                <h3>Section 23</h3>
-                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
-                <div style="height: 350px; background: #20c997; color: white; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
-                    <span style="font-size: 28px;">Cyan Block</span>
-                </div>
-            </div>
-
-            <div class="card" id="scroll-section-24">
-                <h3>Section 24</h3>
-                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</p>
-            </div>
-
-            <div class="card" id="scroll-section-25">
-                <h3>Section 25 - Quarter Way Through Extended Content</h3>
-                <p>You're making great progress! Keep scrolling.</p>
-                <div style="height: 300px; background: linear-gradient(45deg, #007bff, #6610f2); color: white; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
-                    <span style="font-size: 28px;">Blue-Purple Diagonal</span>
-                </div>
-            </div>
-
-            <div class="card" id="scroll-section-26">
-                <h3>Section 26</h3>
-                <p>Excepteur sint occaecat cupidatat non proident.</p>
-            </div>
-
-            <div class="card" id="scroll-section-27">
-                <h3>Section 27</h3>
-                <p>Sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                <div style="height: 450px; background: #fd7e14; color: white; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
-                    <span style="font-size: 32px;">LARGE ORANGE</span>
-                </div>
-            </div>
-
-            <div class="card" id="scroll-section-28">
-                <h3>Section 28</h3>
-                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</p>
-            </div>
-
-            <div class="card" id="scroll-section-29">
-                <h3>Section 29</h3>
-                <p>Accusantium doloremque laudantium, totam rem aperiam.</p>
-                <div style="height: 300px; background: linear-gradient(180deg, #198754 0%, #157347 100%); color: white; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
-                    <span style="font-size: 28px;">Forest Green</span>
-                </div>
-            </div>
-
-            <div class="card" id="scroll-section-30">
-                <h3>Section 30 - Halfway Point</h3>
-                <p>You've scrolled halfway through the extended content!</p>
-                <div style="height: 500px; background: linear-gradient(135deg, #dc3545, #fd7e14, #ffc107, #28a745, #007bff, #6f42c1); color: white; display: flex; align-items: center; justify-content: center; border-radius: 8px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
-                    <span style="font-size: 36px;">🌈 RAINBOW MILESTONE 🌈</span>
-                </div>
-            </div>
-
-            <div class="card" id="scroll-section-31">
-                <h3>Section 31</h3>
-                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur.</p>
-            </div>
-
-            <div class="card" id="scroll-section-32">
-                <h3>Section 32</h3>
-                <p>Aut odit aut fugit, sed quia consequuntur magni dolores.</p>
-                <div style="height: 350px; background: #6c757d; color: white; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
-                    <span style="font-size: 28px;">Gray Block</span>
-                </div>
-            </div>
-
-            <div class="card" id="scroll-section-33">
-                <h3>Section 33</h3>
-                <p>Eos qui ratione voluptatem sequi nesciunt.</p>
-            </div>
-
-            <div class="card" id="scroll-section-34">
-                <h3>Section 34</h3>
-                <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</p>
-                <div style="height: 400px; background: linear-gradient(180deg, #0d6efd 0%, #0a58ca 100%); color: white; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
-                    <span style="font-size: 28px;">Royal Blue</span>
-                </div>
-            </div>
-
-            <div class="card" id="scroll-section-35">
-                <h3>Section 35</h3>
-                <p>Consectetur, adipisci velit, sed quia non numquam eius modi tempora.</p>
-            </div>
-
-            <div class="card" id="scroll-section-36">
-                <h3>Section 36</h3>
-                <p>Incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
-                <div style="height: 300px; background: #212529; color: white; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
-                    <span style="font-size: 28px;">Nearly Black</span>
-                </div>
-            </div>
-
-            <div class="card" id="scroll-section-37">
-                <h3>Section 37</h3>
-                <p>Ut enim ad minima veniam, quis nostrum exercitationem ullam.</p>
-            </div>
-
-            <div class="card" id="scroll-section-38">
-                <h3>Section 38</h3>
-                <p>Corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur.</p>
-                <div style="height: 450px; background: linear-gradient(180deg, #6f42c1 0%, #59359a 100%); color: white; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
-                    <span style="font-size: 32px;">DEEP PURPLE</span>
-                </div>
-            </div>
-
-            <div class="card" id="scroll-section-39">
-                <h3>Section 39</h3>
-                <p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse.</p>
-            </div>
-
-            <div class="card" id="scroll-section-40">
-                <h3>Section 40 - Three Quarters Done!</h3>
-                <p>Almost there! Just 10 more sections to go.</p>
-                <div style="height: 400px; background: linear-gradient(45deg, #198754, #20c997); color: white; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
-                    <span style="font-size: 28px;">Green Diagonal</span>
-                </div>
-            </div>
-
-            <div class="card" id="scroll-section-41">
-                <h3>Section 41</h3>
-                <p>Quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat.</p>
-            </div>
-
-            <div class="card" id="scroll-section-42">
-                <h3>Section 42</h3>
-                <p>Quo voluptas nulla pariatur? At vero eos et accusamus.</p>
-                <div style="height: 350px; background: #dc3545; color: white; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
-                    <span style="font-size: 28px;">Danger Red</span>
-                </div>
-            </div>
-
-            <div class="card" id="scroll-section-43">
-                <h3>Section 43</h3>
-                <p>Et iusto odio dignissimos ducimus qui blanditiis praesentium.</p>
-            </div>
-
-            <div class="card" id="scroll-section-44">
-                <h3>Section 44</h3>
-                <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias.</p>
-                <div style="height: 300px; background: linear-gradient(180deg, #ffc107 0%, #e0a800 100%); color: #212529; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
-                    <span style="font-size: 28px;">Golden Yellow</span>
-                </div>
-            </div>
-
-            <div class="card" id="scroll-section-45">
-                <h3>Section 45</h3>
-                <p>Excepturi sint occaecati cupiditate non provident.</p>
-            </div>
-
-            <div class="card" id="scroll-section-46">
-                <h3>Section 46</h3>
-                <p>Similique sunt in culpa qui officia deserunt mollitia animi.</p>
-                <div style="height: 400px; background: linear-gradient(135deg, #0dcaf0, #0d6efd); color: white; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
-                    <span style="font-size: 28px;">Sky to Blue</span>
-                </div>
-            </div>
-
-            <div class="card" id="scroll-section-47">
-                <h3>Section 47</h3>
-                <p>Id est laborum et dolorum fuga. Et harum quidem rerum facilis est.</p>
-            </div>
-
-            <div class="card" id="scroll-section-48">
-                <h3>Section 48</h3>
-                <p>Et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio.</p>
-                <div style="height: 350px; background: #adb5bd; color: #212529; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
-                    <span style="font-size: 28px;">Silver Block</span>
-                </div>
-            </div>
-
-            <div class="card" id="scroll-section-49">
-                <h3>Section 49 - Almost There!</h3>
-                <p>Just one more section before the bottom marker!</p>
-                <div style="height: 500px; background: linear-gradient(180deg, #000000 0%, #434343 100%); color: white; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
-                    <span style="font-size: 32px;">⬇️ FINAL STRETCH ⬇️</span>
-                </div>
-            </div>
-
-            <div class="card" id="scroll-section-50">
-                <h3>Section 50 - The Last Regular Section</h3>
-                <p>This is the final content section. The bottom marker is right below!</p>
-                <div style="height: 300px; background: linear-gradient(45deg, #dc3545, #fd7e14, #ffc107); color: white; display: flex; align-items: center; justify-content: center; border-radius: 8px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
-                    <span style="font-size: 28px;">🔥 FINISH LINE AHEAD 🔥</span>
-                </div>
-            </div>
-
-            <!-- Distinct bottom element with unique ID for verification -->
-            <div class="card" id="scroll-bottom-marker" style="background: #28a745; color: white; padding: 40px; text-align: center;">
-                <h2 style="color: white; margin-bottom: 20px;">🎉 YOU REACHED THE BOTTOM! 🎉</h2>
-                <p style="font-size: 18px;">This is the bottom marker element for scroll verification.</p>
-                <p style="font-size: 14px;">Element ID: scroll-bottom-marker</p>
-                <button class="btn" id="bottomReachedBtn" style="background: white; color: #28a745; margin-top: 15px;" onclick="document.getElementById('bottomReachedConfirm').style.display='block';">
-                    Click to Confirm You Reached Bottom
-                </button>
-                <div id="bottomReachedConfirm" style="display: none; margin-top: 15px; padding: 15px; background: rgba(255,255,255,0.2); border-radius: 8px;">
-                    ✅ Bottom reached and confirmed!
-                </div>
-            </div>
+      <!-- Timeline Section -->
+      <!-- <section class="section">
+        <h2>Our Journey</h2>
+        <p>From humble beginnings to global presence, here's how we got here.</p>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-date">January 2019</div>
+            <div class="timeline-title">Founded in San Francisco</div>
+            <p class="timeline-desc">Started with a small team of passionate photographers and developers with a vision to democratize travel photography.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">August 2020</div>
+            <div class="timeline-title">Reached 100K Users</div>
+            <p class="timeline-desc">Our community grew exponentially as word spread about our unique approach to visual storytelling.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">March 2022</div>
+            <div class="timeline-title">Global Expansion</div>
+            <p class="timeline-desc">Launched in 50+ countries with localized content and regional photography communities.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">December 2024</div>
+            <div class="timeline-title">2 Million Downloads</div>
+            <p class="timeline-desc">Celebrated our biggest milestone yet with a community spanning every continent.</p>
+          </div>
         </div>
+      </section> -->
+
+      <!-- Cards Section -->
+      <section class="section">
+        <h2>Latest Stories</h2>
+        <p>Read inspiring stories from explorers around the world who capture moments that matter.</p>
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-image">
+              <div class="loading-skeleton"></div>
+              <img src="https://images.unsplash.com/photo-1682687982501-1e58ab814714?w=4000&q=90" alt="Adventure story" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            </div>
+            <div class="card-body">
+              <span class="card-tag">Adventure</span>
+              <h3 class="card-title">Chasing Northern Lights</h3>
+              <p class="card-desc">A photographer's journey through Iceland's winter wonderland in search of the perfect aurora shot.</p>
+            </div>
+          </div>
+          
+          <div class="card">
+            <div class="card-image">
+              <div class="loading-skeleton"></div>
+              <img src="https://images.unsplash.com/photo-1682695797221-8164ff1fafc9?w=4000&q=90" alt="Travel story" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            </div>
+            <div class="card-body">
+              <span class="card-tag">Travel</span>
+              <h3 class="card-title">Hidden Gems of Patagonia</h3>
+              <p class="card-desc">Discovering the untouched beauty of South America's most remote landscapes.</p>
+            </div>
+          </div>
+          
+          <div class="card">
+            <div class="card-image">
+              <div class="loading-skeleton"></div>
+              <img src="https://images.unsplash.com/photo-1682686581030-7fa4ea2b96c3?w=4000&q=90" alt="Culture story" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            </div>
+            <div class="card-body">
+              <span class="card-tag">Culture</span>
+              <h3 class="card-title">Streets of Marrakech</h3>
+              <p class="card-desc">Exploring the vibrant colors, sounds, and traditions of Morocco's ancient medina.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- More Quote -->
+      <section class="section">
+        <div class="quote-block coral">
+          <p class="quote-text">"Photography is the story I fail to put into words."</p>
+          <span class="quote-author">— Destin Sparks</span>
+        </div>
+      </section>
+
+      <!-- More Heavy Images 3 -->
+      <!-- <section class="section">
+        <h2>Coastal Wonders</h2>
+        <p>Where land meets sea, magic happens. Explore our collection of coastal photography.</p>
+        <div class="image-grid">
+          <div class="image-card square">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=4000&q=90" alt="Tropical beach" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Paradise Found</div>
+          </div>
+          
+          <div class="image-card square">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?w=4000&q=90" alt="Ocean waves" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Ocean Rhythm</div>
+          </div>
+          
+          <div class="image-card ultra-wide">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=4000&q=90" alt="Coastal cliffs" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Edge of the World</div>
+          </div>
+        </div>
+      </section> -->
+
+      <!-- Progress Section -->
+      <section class="section">
+        <h2>Our Skills</h2>
+        <p>Years of expertise in various disciplines that power our platform.</p>
+        <div class="progress-section">
+          <div class="progress-item">
+            <div class="progress-label">
+              <span>Photography</span>
+              <span>95%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 95%;"></div>
+            </div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-label">
+              <span>Video Production</span>
+              <span>88%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill sunset" style="width: 88%;"></div>
+            </div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-label">
+              <span>Design</span>
+              <span>92%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill ocean" style="width: 92%;"></div>
+            </div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-label">
+              <span>Development</span>
+              <span>90%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill forest" style="width: 90%;"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Team Section -->
+      <section class="section">
+        <h2>Meet the Team</h2>
+        <p>The talented individuals behind every pixel and experience.</p>
+        <div class="team-grid">
+          <div class="team-member">
+            <div class="team-avatar">
+              <div class="loading-skeleton"></div>
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=90" alt="Team member" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            </div>
+            <div class="team-info">
+              <div class="team-name">Alex Chen</div>
+              <div class="team-role">Lead Photographer</div>
+            </div>
+          </div>
+          <div class="team-member">
+            <div class="team-avatar">
+              <div class="loading-skeleton"></div>
+              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&q=90" alt="Team member" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            </div>
+            <div class="team-info">
+              <div class="team-name">Sarah Miller</div>
+              <div class="team-role">Creative Director</div>
+            </div>
+          </div>
+          <div class="team-member">
+            <div class="team-avatar">
+              <div class="loading-skeleton"></div>
+              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&q=90" alt="Team member" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            </div>
+            <div class="team-info">
+              <div class="team-name">Marcus Lee</div>
+              <div class="team-role">Head of Engineering</div>
+            </div>
+          </div>
+          <div class="team-member">
+            <div class="team-avatar">
+              <div class="loading-skeleton"></div>
+              <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=800&q=90" alt="Team member" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            </div>
+            <div class="team-info">
+              <div class="team-name">Emma Wilson</div>
+              <div class="team-role">Community Lead</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Testimonials -->
+      <section class="section">
+        <h2>What People Say</h2>
+        <p>Hear from our community of photographers and explorers.</p>
+        
+        <div class="testimonial">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar">
+              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=90" alt="User avatar">
+            </div>
+            <div>
+              <div class="testimonial-name">James Morrison</div>
+              <div class="testimonial-role">Professional Photographer</div>
+            </div>
+          </div>
+          <p class="testimonial-text">"This platform has completely transformed how I share my work with the world. The community is incredibly supportive and the tools are unmatched."</p>
+          <div class="testimonial-stars">★★★★★</div>
+        </div>
+<!--         
+        <div class="testimonial">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar">
+              <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=90" alt="User avatar">
+            </div>
+            <div>
+              <div class="testimonial-name">Lisa Zhang</div>
+              <div class="testimonial-role">Travel Blogger</div>
+            </div>
+          </div>
+          <p class="testimonial-text">"I've tried dozens of platforms but nothing comes close. The image quality and loading speeds are phenomenal even on slow connections."</p>
+          <div class="testimonial-stars">★★★★★</div>
+        </div>
+         -->
+        <div class="testimonial">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar">
+              <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&q=90" alt="User avatar">
+            </div>
+            <div>
+              <div class="testimonial-name">David Kim</div>
+              <div class="testimonial-role">Adventure Guide</div>
+            </div>
+          </div>
+          <p class="testimonial-text">"As someone who's always on the move in remote locations, having a mobile-first platform that actually works is a game changer."</p>
+          <div class="testimonial-stars">★★★★★</div>
+        </div>
+      </section>
+
+      <!-- More Heavy Images 4 -->
+      <section class="section">
+        <h2>Desert Dreams</h2>
+        <p>Vast expanses of sand and stone that humble the human spirit.</p>
+        <div class="image-grid">
+          <div class="image-card">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=4000&q=90" alt="Desert dunes" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Saharan Dunes</div>
+          </div>
+          
+          <div class="image-card">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1473580044384-7ba9967e16a0?w=4000&q=90" alt="Desert sunset" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Desert Twilight</div>
+          </div>
+          
+          <div class="image-card wide">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1542401886-65d6c61db217?w=4000&q=90" alt="Desert landscape" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Endless Horizon</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Another Quote -->
+      <section class="section">
+        <div class="quote-block gold">
+          <p class="quote-text">"In every walk with nature, one receives far more than he seeks."</p>
+          <span class="quote-author">— John Muir</span>
+        </div>
+      </section>
+
+      <!-- Steps Section -->
+      <section class="section">
+        <h2>How It Works</h2>
+        <p>Getting started is easy. Follow these simple steps to begin your journey.</p>
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h3>Create Your Account</h3>
+              <p>Sign up in seconds with your email or social accounts. No credit card required to start exploring.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h3>Customize Your Profile</h3>
+              <p>Tell us about your interests and photography style so we can personalize your experience.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h3>Explore & Connect</h3>
+              <p>Discover amazing content from photographers worldwide and connect with like-minded explorers.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+              <h3>Share Your Story</h3>
+              <p>Upload your photos, create galleries, and share your unique perspective with the world.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- More Heavy Images 5 -->
+      <section class="section">
+        <h2>Urban Exploration</h2>
+        <p>The beauty of cities captured through a photographer's lens.</p>
+        <div class="image-grid">
+          <div class="image-card tall">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=4000&q=90" alt="City skyline" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Manhattan Nights</div>
+          </div>
+          
+          <div class="image-card">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=4000&q=90" alt="Tokyo streets" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Tokyo Glow</div>
+          </div>
+          
+          <div class="image-card">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=4000&q=90" alt="Paris" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Paris Romance</div>
+          </div>
+          
+          <div class="image-card wide">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1514565131-fce0801e5785?w=4000&q=90" alt="London" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">London Bridge</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Accordion Section -->
+      <section class="section">
+        <h2>Frequently Asked Questions</h2>
+        <p>Got questions? We've got answers. Here are some of the most common ones.</p>
+        <div class="accordion">
+          <div class="accordion-item">
+            <div class="accordion-header">Is there a free plan available?</div>
+            <div class="accordion-content">Yes! Our free plan includes unlimited photo uploads, basic editing tools, and access to our community features. Perfect for getting started.</div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header">Can I use photos commercially?</div>
+            <div class="accordion-content">It depends on the license. Many photos are available under Creative Commons, but always check the specific license for each image.</div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header">How do I get featured?</div>
+            <div class="accordion-content">Our editorial team reviews submissions weekly. Upload your best work, use relevant tags, and engage with the community to increase visibility.</div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header">What file formats are supported?</div>
+            <div class="accordion-content">We support JPEG, PNG, WebP, and RAW formats including CR2, NEF, ARW, and DNG. Maximum file size is 50MB for free accounts.</div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header">How do I cancel my subscription?</div>
+            <div class="accordion-content">You can cancel anytime from your account settings. Your access will continue until the end of your billing period.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tags Section -->
+      <section class="section">
+        <h2>Popular Topics</h2>
+        <p>Explore content by theme and find exactly what inspires you.</p>
+        <div class="tag-cloud">
+          <span class="tag">Landscape</span>
+          <span class="tag">Portrait</span>
+          <span class="tag">Street</span>
+          <span class="tag">Wildlife</span>
+          <span class="tag">Architecture</span>
+          <span class="tag">Travel</span>
+          <span class="tag">Nature</span>
+          <span class="tag">Urban</span>
+          <span class="tag">Sunset</span>
+          <span class="tag">Mountains</span>
+          <span class="tag">Ocean</span>
+          <span class="tag">Forest</span>
+          <span class="tag">Desert</span>
+          <span class="tag">Night</span>
+          <span class="tag">Aerial</span>
+          <span class="tag">Macro</span>
+        </div>
+      </section>
+
+      <!-- CTA Banner -->
+      <div class="cta-banner">
+        <h2>Ready to Start?</h2>
+        <p>Join our community of 2 million photographers and explorers today.</p>
+        <a href="login.html" class="cta-btn">Get Started Free</a>
+      </div>
+
+      <!-- More Heavy Images 6 -->
+      <section class="section">
+        <h2>Mountain Majesty</h2>
+        <p>Peaks that touch the sky and inspire the soul.</p>
+        <div class="image-grid">
+          <div class="image-card">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=4000&q=90" alt="Mountain peak" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Summit Glory</div>
+          </div>
+          
+          <div class="image-card">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=4000&q=90" alt="Snowy mountains" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Winter Wonderland</div>
+          </div>
+          
+          <div class="image-card tall">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=4000&q=90" alt="Mountain lake" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Alpine Reflection</div>
+          </div>
+          
+          <div class="image-card">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=4000&q=90" alt="Sunrise mountains" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">First Light</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pricing Section -->
+      <section class="section">
+        <h2>Choose Your Plan</h2>
+        <p>Flexible pricing for every type of creator, from hobbyist to professional.</p>
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <div class="pricing-name">Starter</div>
+            <div class="pricing-price">$0<span>/month</span></div>
+            <p class="pricing-desc">Perfect for getting started</p>
+            <ul class="pricing-features">
+              <li>Unlimited photo uploads</li>
+              <li>Basic editing tools</li>
+              <li>Community access</li>
+              <li>5GB storage</li>
+            </ul>
+            <button class="pricing-btn">Get Started</button>
+          </div>
+          
+          <div class="pricing-card featured">
+            <span class="pricing-badge">Most Popular</span>
+            <div class="pricing-name">Pro</div>
+            <div class="pricing-price">$12<span>/month</span></div>
+            <p class="pricing-desc">For serious photographers</p>
+            <ul class="pricing-features">
+              <li>Everything in Starter</li>
+              <li>Advanced editing suite</li>
+              <li>Priority support</li>
+              <li>100GB storage</li>
+              <li>Analytics dashboard</li>
+            </ul>
+            <button class="pricing-btn primary">Upgrade to Pro</button>
+          </div>
+          
+          <div class="pricing-card">
+            <div class="pricing-name">Studio</div>
+            <div class="pricing-price">$29<span>/month</span></div>
+            <p class="pricing-desc">For teams and agencies</p>
+            <ul class="pricing-features">
+              <li>Everything in Pro</li>
+              <li>Team collaboration</li>
+              <li>White-label options</li>
+              <li>Unlimited storage</li>
+              <li>Dedicated account manager</li>
+            </ul>
+            <button class="pricing-btn">Contact Sales</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Another Quote -->
+      <section class="section">
+        <div class="quote-block purple">
+          <p class="quote-text">"The Earth has music for those who listen."</p>
+          <span class="quote-author">— William Shakespeare</span>
+        </div>
+      </section>
+
+      <!-- More Heavy Images 7 -->
+      <section class="section">
+        <h2>Wildlife Encounters</h2>
+        <p>Intimate moments with creatures great and small from around the globe.</p>
+        <div class="image-grid">
+          <div class="image-card">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1474511320723-9a56873571b7?w=4000&q=90" alt="Wildlife" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Savanna King</div>
+          </div>
+          
+          <div class="image-card">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1484406566174-9da000fda645?w=4000&q=90" alt="Wildlife" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Ocean Giant</div>
+          </div>
+          
+          <div class="image-card square">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1535338454770-8be927b5a00b?w=4000&q=90" alt="Wildlife" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Arctic Fox</div>
+          </div>
+          
+          <div class="image-card square">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?w=4000&q=90" alt="Wildlife" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Tropical Wonder</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Map Section -->
+      <section class="section">
+        <h2>Find Us</h2>
+        <p>Visit our headquarters or connect with local photography communities worldwide.</p>
+        <div class="map-container">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d100939.98555096474!2d-122.50764017948922!3d37.75781499657369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80859a6d00690021%3A0x4a501367f076adff!2sSan%20Francisco%2C%20CA!5e0!3m2!1sen!2sus!4v1640000000000!5m2!1sen!2sus" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </section>
+
+      <!-- More Heavy Images 8 -->
+      <section class="section">
+        <h2>Night Photography</h2>
+        <p>When darkness falls, a different kind of beauty emerges.</p>
+        <div class="image-grid">
+          <div class="image-card wide">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1507400492013-162706c8c05e?w=4000&q=90" alt="Night sky" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Milky Way</div>
+          </div>
+          
+          <div class="image-card">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=4000&q=90" alt="Aurora" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Northern Lights</div>
+          </div>
+          
+          <div class="image-card">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1475274047050-1d0c0975c63e?w=4000&q=90" alt="Night city" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">City Lights</div>
+          </div>
+          
+          <div class="image-card tall">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1536183922588-166604504d5e?w=4000&q=90" alt="Moon" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Lunar Beauty</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- More Heavy Images 9 -->
+      <section class="section">
+        <h2>Tropical Paradise</h2>
+        <p>Sun-drenched islands and lush vegetation that define paradise.</p>
+        <div class="image-grid">
+          <div class="image-card">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?w=4000&q=90" alt="Tropical beach" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Island Escape</div>
+          </div>
+          
+          <div class="image-card">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1516815231560-8f41ec531527?w=4000&q=90" alt="Palm trees" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Swaying Palms</div>
+          </div>
+          
+          <div class="image-card wide">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1540202404-a2f29016b523?w=4000&q=90" alt="Underwater" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Coral Dreams</div>
+          </div>
+          
+          <div class="image-card">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=4000&q=90" alt="Tropical sunset" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Golden Hour</div>
+          </div>
+          
+          <div class="image-card">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=4000&q=90" alt="Lagoon" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Crystal Lagoon</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Divider -->
+      <div class="divider"></div>
+
+      <!-- Final Gallery -->
+      <section class="section">
+        <h2>Editor's Picks</h2>
+        <p>A curated selection of this month's most stunning submissions.</p>
+        <div class="image-grid">
+          <div class="image-card ultra-wide">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?w=4000&q=90" alt="Epic landscape" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Grand Panorama</div>
+          </div>
+          
+          <div class="image-card tall">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1682687982183-c2937a74257c?w=4000&q=90" alt="Vertical scene" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Vertical Voyage</div>
+          </div>
+          
+          <div class="image-card">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1682685797886-79020b7462d4?w=4000&q=90" alt="Nature detail" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Intimate Nature</div>
+          </div>
+          
+          <div class="image-card">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1682695794816-7b9da18ed470?w=4000&q=90" alt="Atmospheric" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Atmospheric</div>
+          </div>
+          
+          <div class="image-card wide">
+            <div class="loading-skeleton"></div>
+            <img src="https://images.unsplash.com/photo-1682686581580-d99b0230064e?w=4000&q=90" alt="Wide view" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+            <div class="image-caption">Endless Vista</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Join CTA Section -->
+      <section class="section" id="signup-form">
+        <div class="form-section" style="text-align: center;">
+          <h2>Ready to Join?</h2>
+          <p class="form-subtitle">Create your profile and become part of our global community of explorers and photographers.</p>
+          <a href="login.html" class="submit-btn" style="display: inline-block; text-decoration: none; margin-top: 16px;">Get Started →</a>
+        </div>
+      </section>
     </div>
 
     <footer>
-        Qualtrics Session Replay Test Page | For iOS Safari Mobile Testing
+      <p>Made with ❤️ for explorers everywhere</p>
+      <p><a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="#">Contact</a></p>
+      <p style="margin-top: 16px; font-size: 12px;">© 2026 Journey. All rights reserved.</p>
     </footer>
-
-    <script>
-        // Tab Navigation
-        const tabButtons = document.querySelectorAll('.tab-button');
-        const tabContents = document.querySelectorAll('.tab-content');
-        let visitCount = 0;
-
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const tabId = button.getAttribute('data-tab');
-                
-                // Update active states
-                tabButtons.forEach(btn => btn.classList.remove('active'));
-                tabContents.forEach(content => content.classList.remove('active'));
-                
-                button.classList.add('active');
-                document.getElementById(tabId).classList.add('active');
-                
-                // Increment visit counter
-                visitCount++;
-                document.getElementById('visitCounter').textContent = visitCount;
-            });
-        });
-
-        // Counter buttons
-        document.getElementById('incrementBtn').addEventListener('click', () => {
-            visitCount++;
-            document.getElementById('visitCounter').textContent = visitCount;
-        });
-
-        document.getElementById('resetBtn').addEventListener('click', () => {
-            visitCount = 0;
-            document.getElementById('visitCounter').textContent = visitCount;
-        });
-
-        // Toggle content
-        document.getElementById('toggleBtn').addEventListener('click', () => {
-            const content = document.getElementById('toggleContent');
-            content.style.display = content.style.display === 'none' ? 'block' : 'none';
-        });
-
-        // Accordion
-        document.querySelectorAll('.accordion-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const targetId = btn.getAttribute('data-target');
-                const target = document.getElementById(targetId);
-                target.style.display = target.style.display === 'none' ? 'block' : 'none';
-            });
-        });
-
-        // Action buttons
-        document.getElementById('action1').addEventListener('click', () => alert('Action 1 clicked!'));
-        document.getElementById('action2').addEventListener('click', () => alert('Action 2 clicked!'));
-        document.getElementById('action3').addEventListener('click', () => alert('Action 3 clicked!'));
-
-        // Form handling
-        function handleFormSubmit(event) {
-            event.preventDefault();
-            const formData = new FormData(document.getElementById('testForm'));
-            const data = {};
-            formData.forEach((value, key) => data[key] = value);
-            
-            document.getElementById('formResult').style.display = 'block';
-            document.getElementById('formResultText').textContent = 
-                'Name: ' + (data.name || 'N/A') + ', Email: ' + (data.email || 'N/A') + ', Rating: ' + (data.rating || 'N/A');
-            
-            return false;
-        }
-
-        document.getElementById('clearForm').addEventListener('click', () => {
-            document.getElementById('testForm').reset();
-            document.getElementById('formResult').style.display = 'none';
-        });
-
-        // JS Error button
-        document.getElementById('JSErrorButton').addEventListener('click', () => {
-            throw new Error('Test JS Error triggered');
-        });
-
-        // Rage click counter
-        let rageClickCount = 0;
-        document.getElementById('RageClickTarget').addEventListener('click', () => {
-            rageClickCount++;
-            document.getElementById('clickCount').textContent = 'Click count: ' + rageClickCount;
-        });
-
-        // Grid items
-        document.querySelectorAll('.grid-item').forEach(item => {
-            item.addEventListener('click', () => {
-                document.querySelectorAll('.grid-item').forEach(i => i.style.background = '#e9ecef');
-                item.style.background = '#007bff';
-                item.style.color = 'white';
-                document.getElementById('selectedItem').textContent = 'Selected: Item ' + item.getAttribute('data-item');
-            });
-        });
-    </script>
-</body>
+  </body>
 </html>
