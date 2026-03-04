@@ -36,9 +36,16 @@
             display: flex;
             background: #e0e0e0;
             border-bottom: 2px solid #ccc;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .tab-nav::-webkit-scrollbar {
+            display: none;
         }
         .tab-button {
-            flex: 1;
+            flex: 0 0 auto;
             padding: 15px 20px;
             border: none;
             background: #e0e0e0;
@@ -47,6 +54,7 @@
             font-weight: 500;
             color: #555;
             transition: all 0.3s ease;
+            white-space: nowrap;
         }
         .tab-button:hover {
             background: #d0d0d0;
